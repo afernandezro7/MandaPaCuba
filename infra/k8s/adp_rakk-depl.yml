@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adp_rakk-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adp_rakk
+  template:
+    metadata:
+      labels:
+        app: adp_rakk
+    spec:
+      containers:
+      - name: adp_rakk
+        image: afernandezro7/adp-rakkaton_API
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adp_rakk-srv
+spec:
+  selector:
+    app: adp_rakk
+  type: ClusterIP
+  ports:
+  - name: adp_rakk
+    protocol: TCP
+    port:  3000
+    targetPort:  3000
